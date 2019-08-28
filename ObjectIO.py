@@ -164,7 +164,7 @@ class Stream():
    def selectiveMap(self, filterFunction, mapFunction):
       """Maps only the stored data that passes the filter function provided.\n'filterFunction' - The function to filter the results.\n'mapFunction' - The function to be used for mapping."""
       plist = Utilities.createEmbeddedList(range(0, len(self)), self)
-      AdvancedMap(plist).filterResults(lambda x: filterFunction(x[1])).forEach(lambda x: AdvancedMap.__setElementAt(self.results, x[0], mapFunction(x[1])))
+      Stream(plist).filterResults(lambda x: filterFunction(x[1])).forEach(lambda x: Stream.__setElementAt(self.results, x[0], mapFunction(x[1])))
       return self
 
    def __setElementAt(plist, index, newElement):
@@ -178,7 +178,7 @@ class Stream():
     
    def filter(self, function):
       """Filters stored results using the function provided, and thus alters the final result.\n'function' - The function used to filter the stored results."""
-      self.results = self.getFilteredResults(function)
+      self.results = list(filter(function, self.results))
       return self
 
    def forEach(self, function):
